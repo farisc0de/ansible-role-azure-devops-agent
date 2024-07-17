@@ -16,27 +16,27 @@ pipelining = True can help, especially if you run into issues where the devops a
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
 ```yaml
-    az_devops_accountname: null
-    az_devops_accesstoken: null
-    az_devops_project_name: null
-    az_devops_agent_version: 2.188.3
-    az_devops_agent_user: "az_devops_agent"
-    az_devops_agent_uid: null
-    az_devops_agent_name: "{{ ansible_hostname }}"
-    az_devops_server_url: "https://dev.azure.com/{{ az_devops_accountname }}"
-    az_devops_agent_folder: "/home/{{ az_devops_agent_user }}/agent/"
-    az_devops_work_folder: "/home/{{ az_devops_agent_user }}/agent/_work"
-    az_devops_agent_pool_name: "Default"
-    az_devops_agent_role: "build"
-    az_devops_deployment_group_tags: null
-    az_devops_environment_name: null
-    az_devops_deployment_group_name: null
-    az_devops_agent_replace_existing: false
-    az_devops_reconfigure_agent: false
-    az_devops_agent_user_capabilities: null
-    az_devops_proxy_url: null
-    az_devops_proxy_username: null
-    az_devops_proxy_password: null
+az_devops_accountname: null
+az_devops_accesstoken: null
+az_devops_project_name: null
+az_devops_agent_version: 3.241.0
+az_devops_agent_user: "az_devops_agent"
+az_devops_agent_uid: null
+az_devops_agent_name: "{{ ansible_hostname }}"
+az_devops_server_url: "https://dev.azure.com/{{ az_devops_accountname }}"
+az_devops_agent_folder: "/home/{{ az_devops_agent_user }}/agent/"
+az_devops_work_folder: "/home/{{ az_devops_agent_user }}/agent/_work"
+az_devops_agent_pool_name: "Default"
+az_devops_agent_role: "build"
+az_devops_deployment_group_tags: null
+az_devops_environment_name: null
+az_devops_deployment_group_name: null
+az_devops_agent_replace_existing: false
+az_devops_reconfigure_agent: false
+az_devops_agent_user_capabilities: null
+az_devops_proxy_url: null
+az_devops_proxy_username: null
+az_devops_proxy_password: null
 ```
 
 - **az_devops_accountname**
@@ -99,11 +99,11 @@ Available variables are listed below, along with default values (see `defaults/m
 
 - **az_devops_deployment_group_name**
 
-  Use in conjuction with the `deployment` agent role. The name of the deployment group in which to add the agent.  **This needs to be manually created in you Azure DevOps project beforehand.**
+  Use in conjuction with the `deployment` agent role. The name of the deployment group in which to add the agent. **This needs to be manually created in you Azure DevOps project beforehand.**
 
 - **az_devops_environment_name**
 
-  Use in conjuction with the `resource` agent role. The name of the environment in which to add the VM resource.  **This needs to be manually created in you Azure DevOps project beforehand.**
+  Use in conjuction with the `resource` agent role. The name of the environment in which to add the VM resource. **This needs to be manually created in you Azure DevOps project beforehand.**
 
 - **az_devops_agent_replace_existing**
 
@@ -140,9 +140,28 @@ Available variables are listed below, along with default values (see `defaults/m
   Example usage:
 
 ```yaml
-    - az_devops_agent_user_capabilties:
-      user_capabilty_key: user_capability_value
+- az_devops_agent_user_capabilties:
+  user_capabilty_key: user_capability_value
 ```
+
+- **az_devops_agent_package_url**
+
+  URL for the agent package (see [here](https://github.com/microsoft/azure-pipelines-agent/releases) for a list of available versions).
+  The value is pre-generated but can be controlled by setting `az_devops_agent_package_url` in your Ansible (inventory) file as follows:
+
+  - For pipeline based package with modern Node support for Azure DevOps SaaS:
+
+  ```yaml
+  az_devops_agent_package_url: "https://vstsagentpackage.azureedge.net/agent/{{ az_devops_agent_version }}/pipelines-agent-{{ ansible_system | lower | replace('darwin', 'osx') }}-{{ ansible_architecture | replace('x86_64', 'x64') | replace('aarch64', 'arm64') }}-{{ az_devops_agent_version }}.tar.gz"
+  ```
+
+  - For pipeline based package without modern Node support for VSTS / Azure DevOps Server: you can leave as it is but it won't support arm based infra, otherwise use as follows:
+
+  ```yaml
+  az_devops_agent_package_url: "https://vstsagentpackage.azureedge.net/agent/{{ az_devops_agent_version }}/vsts-agent-{{ ansible_system | lower | replace('darwin', 'osx') }}-{{ ansible_architecture | replace('x86_64', 'x64') | replace('aarch64', 'arm64') }}-{{ az_devops_agent_version }}.tar.gz"
+  ```
+
+  It can be added as a default variable that is used across all environments, I will leave for someone else to add it, as it is an easy implementation and not a priority.
 
 ## Example Playbooks
 
@@ -201,6 +220,13 @@ Available variables are listed below, along with default values (see `defaults/m
     - az_devops_proxy_username: bob
     - az_devops_proxy_password: ***
 ```
+
+## Pull Requests Merged
+
+1. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/73
+2. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/81
+3. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/84
+4. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/85
 
 ## License
 

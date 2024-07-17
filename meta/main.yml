@@ -1,12 +1,14 @@
+---
 galaxy_info:
   role_name: azure_devops_agent
-  author: Yohan Belval
+  namespace: farisc0de
+  author: Faris Alotaibi
   description: Azure DevOps Agent for Linux.
-  company: GSoft
+  company: Innovaox
 
-  license: "license (Apache-2.0)"
+  license: license (Apache-2.0)
 
-  min_ansible_version: 2.4
+  min_ansible_version: "2.4"
 
   platforms:
     - name: Ubuntu
@@ -14,20 +16,20 @@ galaxy_info:
         - xenial
         - bionic
         - focal
+        - jammy
     - name: EL
       versions:
-        - 7
+        - all
     - name: Debian
       versions:
         - stretch
         - buster
     - name: Windows
       versions:
-        - 2016
-        - 2019
+        - all
     - name: MacOSX
       versions:
-        - 10.15
+        - all
 
   galaxy_tags:
     - azure
