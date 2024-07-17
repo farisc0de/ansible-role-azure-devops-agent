@@ -18,4 +18,4 @@ az_devops_deployment_group_tags:
 az_devops_proxy_url:
 az_devops_proxy_username:
 az_devops_proxy_password:
-az_devops_agent_create_local_user: true
+az_devops_agent_create_local_user: false

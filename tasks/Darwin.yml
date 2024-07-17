@@ -7,6 +7,7 @@
     group: "{{ az_devops_agent_group }}"
     uid: "{{ az_devops_agent_uid | default(omit) }}"
   become: true
+  when: az_devops_agent_create_local_user | bool
 
 - name: Create directories
   ansible.builtin.file:
