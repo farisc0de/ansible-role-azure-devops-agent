@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: azure_devops_agent
+  role_name: az_devops
   namespace: farisc0de
   author: Faris Alotaibi
   description: Azure DevOps Agent for Linux.
