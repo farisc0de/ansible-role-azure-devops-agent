@@ -11,19 +11,6 @@
   loop_control:
     loop_var: varfile
 
-- name: Read platform-specific package list variables
-  ansible.builtin.include_vars: "{{ varfile }}"
-  with_first_found:
-    - files:
-        - dependencies-{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml
-        - dependencies-{{ ansible_distribution }}.yml
-        - dependencies-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
-        - dependencies-{{ ansible_os_family }}.yml
-        - dependencies-{{ ansible_system }}.yml
-      skip: true
-  loop_control:
-    loop_var: varfile
-
 - name: Read platform specific tasks
   ansible.builtin.include_tasks: "{{ taskfile }}"
   with_first_found:
