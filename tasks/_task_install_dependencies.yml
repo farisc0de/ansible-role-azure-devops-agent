@@ -1,6 +1,0 @@
-- name: Install dependencies
-  ansible.bultin.command: "{{ az_devops_agent_folder }}/bin/installdependencies.sh"
-  become: true
-  register: dependency_installation_output
-  changed_when: false
-  when: bin_agent_listener.stat.exists

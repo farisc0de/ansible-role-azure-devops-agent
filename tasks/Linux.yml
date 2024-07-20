@@ -31,15 +31,18 @@
   become: true
 
 - name: Check if bin/Agent.Listener exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ '/'.join((az_devops_agent_folder, 'bin/Agent.Listener')) }}"
   register: bin_agent_listener
   become: true
   changed_when: false
-  check_mode: no
+  check_mode: false
 
 - name: Include dependencies
-  ansible.builtin.include_tasks: _task_install_dependencies.yml
+  ansible.bultin.command: "{{ az_devops_agent_folder }}/bin/installdependencies.sh"
+  become: true
+  register: dependency_installation_output
+  changed_when: false
   when: bin_agent_listener.stat.exists
 
 - name: Check if svc.sh exists
