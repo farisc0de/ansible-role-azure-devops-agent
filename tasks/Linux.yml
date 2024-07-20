@@ -39,7 +39,7 @@
   check_mode: false
 
 - name: Include dependencies
-  ansible.bultin.command: "{{ az_devops_agent_folder }}/bin/installdependencies.sh"
+  ansible.builtin.command: "{{ az_devops_agent_folder }}/bin/installdependencies.sh"
   become: true
   register: dependency_installation_output
   changed_when: false
