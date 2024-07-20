@@ -1,6 +1,6 @@
 ---
-az_devops_default_agent_folder: /home/{{ az_devops_agent_user }}/agent/
-az_devops_default_work_folder: /home/{{ az_devops_agent_user }}/agent/_work
+az_devops_default_agent_folder: /home/{{ az_devops_agent_user }}/azgent/
+az_devops_default_work_folder: /home/{{ az_devops_agent_user }}/azgent/_work
 az_devops_default_agent_package_url: >
   "https://vstsagentpackage.azureedge.net/agent/{{ az_devops_agent_version }}/vsts-agent-{{ ansible_system | lower |
    replace('darwin', 'osx') }}-{{ ansible_architecture | replace('x86_64', 'x64') |
