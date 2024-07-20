@@ -50,35 +50,35 @@
   ansible.builtin.set_fact:
     deployment_install_options: "{{ deployment_install_options + ['/DeploymentGroupTags:' + az_devops_deployment_group_tags] }}"
   when:
-    - az_devops_deployment_group_tags is defined
+    - az_devops_deployment_group_tags is defined and az_devops_deployment_group_tags != None
     - az_devops_deployment_group_tags
 
 - name: Add environment resource tags
   ansible.builtin.set_fact:
     resource_agent_install_options: "{{ resource_agent_install_options + ['/EnvironmentTags:' + az_devops_environment_tags] }}"
   when:
-    - az_devops_environment_tags is defined
+    - az_devops_environment_tags is defined and az_devops_deployment_group_tags != None
     - az_devops_environment_tags
 
 - name: Add az_devops_proxy_url
   ansible.builtin.set_fact:
     common_install_options: "{{ common_install_options + ['/ProxyUrl:' + az_devops_proxy_url] }}"
   when:
-    - az_devops_proxy_url is defined
+    - az_devops_proxy_url is defined and az_devops_deployment_group_tags != None
     - az_devops_proxy_url
 
 - name: Add az_devops_proxy_username
   ansible.builtin.set_fact:
     common_install_options: "{{ common_install_options + ['/ProxyUserName:' + az_devops_proxy_username] }}"
   when:
-    - az_devops_proxy_username is defined
+    - az_devops_proxy_username is defined and az_devops_deployment_group_tags != None
     - az_devops_proxy_username
 
 - name: Add az_devops_proxy_password
   ansible.builtin.set_fact:
     common_install_options: "{{ common_install_options + ['/ProxyPassword:' + az_devops_proxy_password] }}"
   when:
-    - az_devops_proxy_password is defined
+    - az_devops_proxy_password is defined and az_devops_deployment_group_tags != None
     - az_devops_proxy_password
 
 - name: Configure agent as a build server

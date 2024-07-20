@@ -117,7 +117,7 @@
     - reconfigure_or_replace
 
 - name: Unconfigure agent
-  ansible.builtin.command: ./config.sh remove --auth PAT --token {{ az_devops_accesstoken }}
+  ansible.builtin.command: ./config.sh remove --auth pat --token {{ az_devops_accesstoken }}
   args:
     chdir: "{{ az_devops_agent_folder }}"
     removes: "{{ az_devops_agent_folder }}/.agent"

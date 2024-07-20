@@ -13,23 +13,31 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - xenial
-        - bionic
-        - focal
-        - jammy
+        - "xenial"
+        - "bionic"
+        - "focal"
+        - "jammy"
     - name: EL
       versions:
-        - all
+        - "7"
+        - "8"
+        - "9"
     - name: Debian
       versions:
-        - stretch
-        - buster
+        - "bookworm"
+        - "bullseye"
+        - "buster"
+        - "etch"
+        - "jessie"
     - name: Windows
       versions:
-        - all
+        - "2016"
+        - "2019"
     - name: MacOSX
       versions:
-        - all
+        - "10"
+        - "13"
+        - "14"
 
   galaxy_tags:
     - azure

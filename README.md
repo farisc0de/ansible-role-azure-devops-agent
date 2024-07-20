@@ -223,11 +223,13 @@ az_devops_proxy_password: null
 
 ## Pull Requests Merged
 
-1. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/73
-2. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/81
-3. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/84
-4. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/85
-5. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/62
+1. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/62
+2. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/73
+3. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/78
+4. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/81
+5. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/83
+6. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/84
+7. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/85
 
 ## License
 
