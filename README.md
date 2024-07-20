@@ -227,6 +227,7 @@ az_devops_proxy_password: null
 2. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/81
 3. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/84
 4. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/85
+5. https://github.com/gsoft-inc/ansible-role-azure-devops-agent/pull/62
 
 ## License
 

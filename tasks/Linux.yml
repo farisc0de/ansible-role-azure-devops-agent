@@ -1,4 +1,11 @@
 ---
+- name: Add an agent user group
+  ansible.builtin.group:
+    name: "{{ az_devops_agent_group }}"
+    state: present
+  become: true
+  when: az_devops_agent_create_local_user | bool
+
 - name: Add an agent user
   ansible.builtin.user:
     name: "{{ az_devops_agent_user }}"
@@ -119,7 +126,7 @@
         '--proxypassword \\'{{ az_devops_proxy_password }}\\''
       ] }}"
   when:
-    - az_devops_proxy_url is defined and az_devops_proxy_url | length > 0
+    - az_devops_proxy_url is defined and az_devops_proxy_url is not none
 
 - name: Download and unarchive
   ansible.builtin.unarchive:

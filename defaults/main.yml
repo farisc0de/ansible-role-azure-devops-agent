@@ -1,17 +1,20 @@
 ---
 az_devops_agent_version: 3.241.0
 az_devops_agent_user: az_devops_agent
-az_devops_agent_name: "{{ ansible_hostname }}"
+az_devops_agent_name: "{{ agent_name if agent_name is defined else ansible_hostname }}"
 az_devops_server_url: https://dev.azure.com/{{ az_devops_accountname }}/
-az_devops_agent_folder: "{{ az_devops_default_agent_folder }}"
-az_devops_work_folder: "{{ az_devops_default_work_folder }}"
-az_devops_agent_group: "{{ az_devops_default_agent_group }}"
+az_devops_agent_folder: "/home/{{ az_devops_agent_user }}/azagent"
+az_devops_work_folder: "_work"
+az_devops_agent_group: "az_devops_agent"
 az_devops_agent_pool_name: Default
 az_devops_agent_role: build
 az_devops_agent_replace_existing: false
 az_devops_reconfigure_agent: false
 az_devops_project_name:
-az_devops_agent_package_url: "{{ az_devops_default_agent_package_url }}"
+az_devops_agent_package_url: >
+  "https://vstsagentpackage.azureedge.net/agent/{{ az_devops_agent_version }}/vsts-agent-{{ ansible_system | lower |
+  replace('darwin', 'osx') }}-{{ ansible_architecture | replace('x86_64', 'x64') |
+  replace('aarch64', 'arm64') }}-{{ az_devops_agent_version }}.tar.gz"
 az_devops_environment_name:
 az_devops_deployment_group_name:
 az_devops_deployment_group_tags:
