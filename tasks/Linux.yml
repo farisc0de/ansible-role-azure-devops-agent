@@ -30,6 +30,14 @@
     loop_var: directory
   become: true
 
+- name: Check if bin/Agent.Listener exists
+  stat:
+    path: "{{ '/'.join((az_devops_agent_folder, 'bin/Agent.Listener')) }}"
+  register: bin_agent_listener
+  become: true
+  changed_when: false
+  check_mode: no
+
 - name: Include dependencies
   ansible.builtin.include_tasks: _task_install_dependencies.yml
   when: bin_agent_listener.stat.exists
