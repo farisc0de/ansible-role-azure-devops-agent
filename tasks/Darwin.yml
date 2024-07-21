@@ -70,9 +70,9 @@
       - --auth PAT
       - --token '{{ az_devops_accesstoken }}'
       - --runasservice
+      - --agent '{{ az_devops_agent_name }}'
     build_agent_cmd_args:
       - --pool '{{ az_devops_agent_pool_name }}'
-      - --agent '{{ az_devops_agent_name }}'
     deployment_agent_cmd_args:
       - --deploymentgroup
       - --deploymentgroupname '{{ az_devops_deployment_group_name }}'
@@ -80,7 +80,6 @@
     resource_agent_cmd_args:
       - --environment
       - --environmentname '{{ az_devops_environment_name }}'
-      - --agent '{{ az_devops_agent_name }}'
       - --projectname '{{ az_devops_project_name }}'
     service_is_installed: "{{ svc_status.stdout is defined and svc_status.stdout is not regex('not installed') }}"
     service_is_running: "{{ svc_status.stdout is defined and svc_status.stdout is regex('active \\(running\\)') }}"
