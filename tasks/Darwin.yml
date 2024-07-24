@@ -67,8 +67,6 @@
       - --acceptteeeula
       - --url '{{ az_devops_server_url }}'
       - --work '{{ az_devops_work_folder }}'
-      - --auth PAT
-      - --token '{{ az_devops_accesstoken }}'
       - --runasservice
       - --agent '{{ az_devops_agent_name }}'
     build_agent_cmd_args:
@@ -92,6 +90,27 @@
       '] }}"
   when:
     - az_devops_deployment_group_tags is defined and az_devops_deployment_group_tags is not none
+
+- name: Set Authenticaton Credentials
+  ansible.builtin.set_fact:
+    agent_cmd_args: "{{ agent_cmd_args + ['--auth', 'PAT', '--token', '{{ az_devops_accesstoken }}'] }}"
+  when:
+    - az_devops_auth_type == 'PAT'
+
+- name: Set Authenticaton Credentials
+  ansible.builtin.set_fact:
+    agent_cmd_args: >
+      {{
+        agent_cmd_args +
+        [
+          '--auth', 'SP',
+          '--clientid', '{{ az_devops_client_id }}',
+          '--tenantid', '{{ az_devops_tenant_id }}',
+          '--clientsecret', '{{ az_devops_client_secret }}'
+        ]
+      }}
+  when:
+    - az_devops_auth_type == 'SP'
 
 - name: Set proxy
   ansible.builtin.set_fact:

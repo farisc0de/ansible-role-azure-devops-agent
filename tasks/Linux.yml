@@ -89,10 +89,8 @@
       - --acceptteeeula
       - --url '{{ az_devops_server_url }}'
       - --work '{{ az_devops_work_folder }}'
-      - --auth PAT
-      - --token '{{ az_devops_accesstoken }}'
-      - --runasservice
       - --agent '{{ az_devops_agent_name }}'
+      - --runasservice
     build_agent_cmd_args:
       - --pool '{{ az_devops_agent_pool_name }}'
     deployment_agent_cmd_args:
@@ -114,6 +112,27 @@
     build_server_cmd_args: "{{ agent_cmd_args + build_agent_cmd_args }}"
     deployment_server_cmd_args: "{{ agent_cmd_args + deployment_agent_cmd_args }}"
     resource_server_cmd_args: "{{ agent_cmd_args + resource_agent_cmd_args }}"
+
+- name: Set Authenticaton Credentials
+  ansible.builtin.set_fact:
+    agent_cmd_args: "{{ agent_cmd_args + ['--auth', 'PAT', '--token', '{{ az_devops_accesstoken }}'] }}"
+  when:
+    - az_devops_auth_type == 'PAT'
+
+- name: Set Authenticaton Credentials
+  ansible.builtin.set_fact:
+    agent_cmd_args: >
+      {{
+        agent_cmd_args +
+        [
+          '--auth', 'SP',
+          '--clientid', '{{ az_devops_client_id }}',
+          '--tenantid', '{{ az_devops_tenant_id }}',
+          '--clientsecret', '{{ az_devops_client_secret }}'
+        ]
+      }}
+  when:
+    - az_devops_auth_type == 'SP'
 
 - name: Determine if the agent should be reconfigured or replaced
   ansible.builtin.set_fact:
