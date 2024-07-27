@@ -35,9 +35,7 @@ galaxy_info:
         - "2019"
     - name: MacOSX
       versions:
-        - "10"
-        - "13"
-        - "14"
+        - all
 
   galaxy_tags:
     - azure

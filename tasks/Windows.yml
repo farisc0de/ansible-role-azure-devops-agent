@@ -8,13 +8,11 @@
   become: true
   when:
     - az_devops_agent_create_local_user
+
 - name: Ensure chocolatey is present
   chocolatey.chocolatey.win_chocolatey:
     name: chocolatey
     state: present
-
-# The full list of parameters is documented here:
-# https://github.com/flcdrg/au-packages/blob/master/azure-pipelines-agent/README.md
 
 - name: Set basic agent package parameters
   ansible.builtin.set_fact:
@@ -39,22 +37,20 @@
 
 - name: Set Authenticaton Credentials
   ansible.builtin.set_fact:
-    # If Authenticaton Type is PAT then load token and if the auth type is SP load service account
-    common_install_options: "{{ common_install_options + ['/Auth', 'PAT', '/Token', '{{ az_devops_accesstoken }}'] }}"
+    common_install_options: "{{ common_install_options + ['/Auth:' + 'PAT', '/Token:' + '{{ az_devops_accesstoken }}'] }}"
   when:
     - az_devops_auth_type == 'PAT'
 
 - name: Set Authenticaton Credentials
   ansible.builtin.set_fact:
-    # If Authenticaton Type is PAT then load token and if the auth type is SP load service account
     common_install_options: >
       {{
         common_install_options +
         [
-          '/Auth', 'SP',
-          '/ClientId', '{{ az_devops_client_id }}',
-          '/TenantId', '{{ az_devops_tenant_id }}',
-          '/ClientSecret', '{{ az_devops_client_secret }}'
+          '/Auth:' + 'SP',
+          '/ClientId:' + '{{ az_devops_client_id }}',
+          '/TenantId:' + '{{ az_devops_tenant_id }}',
+          '/ClientSecret:' + '{{ az_devops_client_secret }}'
         ]
       }}
   when:
