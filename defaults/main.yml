@@ -20,4 +20,4 @@ az_devops_proxy_url:
 az_devops_proxy_username:
 az_devops_proxy_password:
 az_devops_agent_create_local_user: false
-az_devops_auth_type: PAT
+az_devops_auth_type: "{{ az_devops_auth_type }}"

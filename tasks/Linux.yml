@@ -90,6 +90,7 @@
       - --url '{{ az_devops_server_url }}'
       - --work '{{ az_devops_work_folder }}'
       - --agent '{{ az_devops_agent_name }}'
+      - --auth '{{ az_devops_auth_type }}'
       - --runasservice
     build_agent_cmd_args:
       - --pool '{{ az_devops_agent_pool_name }}'
@@ -116,7 +117,7 @@
 - name: Set Authenticaton Credentials
   ansible.builtin.set_fact:
     agent_cmd_args: >
-      {{ agent_cmd_args + ['--auth PAT', '--token' + ' ' + '"'{{ az_devops_accesstoken }}'"'] }}
+      {{ agent_cmd_args + ['--token \\'{{ az_devops_accesstoken }}\\''] }}
   when:
     - az_devops_auth_type == 'PAT'
 
@@ -126,10 +127,9 @@
       {{
         agent_cmd_args +
         [
-          '--auth SP',
-          '--clientid' + ' ' + '"'{{ az_devops_client_id }}'"',
-          '--tenantid' + ' ' + '"'{{ az_devops_tenant_id }}'"',
-          '--clientsecret' + ' ' + '"'{{ az_devops_client_secret }}'"',
+          '--clientid \\'{{ az_devops_client_id }}\\'',
+          '--tenantid \\'{{ az_devops_tenant_id }}\\'',
+          '--clientsecret \\'{{ az_devops_client_secret }}\\'',
         ]
       }}
   when:
