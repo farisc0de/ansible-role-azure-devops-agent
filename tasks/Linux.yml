@@ -114,22 +114,21 @@
     deployment_server_cmd_args: "{{ agent_cmd_args + deployment_agent_cmd_args }}"
     resource_server_cmd_args: "{{ agent_cmd_args + resource_agent_cmd_args }}"
 
-- name: Set Authenticaton Credentials
+- name: Set Authentication Credentials (PAT)
   ansible.builtin.set_fact:
-    agent_cmd_args: >
-      {{ agent_cmd_args + ['--token \\'{{ az_devops_accesstoken }}\\''] }}
+    agent_cmd_args: "{{ agent_cmd_args + ['--token \\'{}\\''.format(az_devops_accesstoken)] }}"
   when:
     - az_devops_auth_type == "PAT"
 
-- name: Set Authenticaton Credentials
+- name: Set Authentication Credentials (SP)
   ansible.builtin.set_fact:
-    agent_cmd_args: >
+    agent_cmd_args: >-
       {{
         agent_cmd_args +
         [
-          '--clientid \\'{{ az_devops_client_id }}\\'',
-          '--tenantid \\'{{ az_devops_tenant_id }}\\'',
-          '--clientsecret \\'{{ az_devops_client_secret }}\\'',
+          '--clientid \\'{}\\''.format(az_devops_client_id),
+          '--tenantid \\'{}\\''.format(az_devops_tenant_id),
+          '--clientsecret \\'{}\\''.format(az_devops_client_secret),
         ]
       }}
   when:
