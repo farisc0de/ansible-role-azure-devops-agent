@@ -87,12 +87,6 @@
     is_requested_version: >
       "{{ bin_agent_listener.stat.exists and agent_listener_version.stdout is defined and agent_listener_version.stdout == az_devops_agent_version }}"
 
-- name: Set Agent config facts combined
-  ansible.builtin.set_fact:
-    build_server_cmd_args: "{{ agent_cmd_args + build_agent_cmd_args }}"
-    deployment_server_cmd_args: "{{ agent_cmd_args + deployment_agent_cmd_args }}"
-    resource_server_cmd_args: "{{ agent_cmd_args + resource_agent_cmd_args }}"
-
 - name: Set Authentication Credentials (PAT)
   ansible.builtin.set_fact:
     agent_cmd_args: "{{ agent_cmd_args + ['--token ' + az_devops_accesstoken | quote] }}"
@@ -105,6 +99,12 @@
       '--tenantid ' + az_devops_tenant_id | quote,
       '--clientsecret ' + az_devops_client_secret | quote] }}"
   when: az_devops_auth_type == "SP"
+
+- name: Set Agent config facts combined
+  ansible.builtin.set_fact:
+    build_server_cmd_args: "{{ agent_cmd_args + build_agent_cmd_args }}"
+    deployment_server_cmd_args: "{{ agent_cmd_args + deployment_agent_cmd_args }}"
+    resource_server_cmd_args: "{{ agent_cmd_args + resource_agent_cmd_args }}"
 
 - name: Determine if the agent should be reconfigured or replaced
   ansible.builtin.set_fact:
