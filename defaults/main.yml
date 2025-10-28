@@ -1,5 +1,5 @@
 ---
-az_devops_agent_version: 3.241.0
+az_devops_agent_version: 4.261.0
 az_devops_agent_user: az_devops_agent
 az_devops_agent_name: "{{ az_devops_agent_name }}"
 az_devops_accountname:
